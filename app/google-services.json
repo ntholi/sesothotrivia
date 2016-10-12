@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "176352067508",
+    "firebase_url": "https://sesotho-trivia.firebaseio.com",
+    "project_id": "sesotho-trivia",
+    "storage_bucket": "sesotho-trivia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:176352067508:android:50f73c17ef4c4356",
+        "android_client_info": {
+          "package_name": "com.nalaneholdings.sesothotrivia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "176352067508-12aovpl0un8tvm9s2085rp7llut6pge5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbpHgQ4BdvI7Dgmuyq7hftoDEvqoqyb5E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
