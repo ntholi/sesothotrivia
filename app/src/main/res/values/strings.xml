@@ -1,4 +1,42 @@
 <resources>
     <string name="app_name">Sesotho Trivia</string>
     <string name="action_settings">Settings</string>
+
+    <!--Start from example https://www.sitepoint.com/creating-a-cloud-backend-for-your-android-app-using-firebase/-->
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="sign_up_button_label">Sign Up</string>
+    <string name="signup_error_message">Please make sure you enter an email address and password!</string>
+    <string name="signup_error_title">Error!</string>
+    <string name="signup_success">Account successfully created! You can now Login.</string>
+    <string name="login_error_message">Please make sure you enter an email address and password!</string>
+    <string name="login_error_title">Error!</string>
+    <string name="login_button_label">Login</string>
+    <string name="sign_up_text">Sign Up!</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="add_item">Add New Item</string>
+    <string name="action_logout">Logout</string>
+    <!--End from example-->
+
+
+    <string name="large_placeholder_text">
+        Lorem ipsum donec sagittis ipsum etiam odio, vivamus sodales mattis scelerisque in netus,
+        varius cursus felis potenti class auctor, ut quisque mollis lacinia phasellus interdum
+        bibendum magna risus id adipiscing, lorem hendrerit ut nisl integer eu
+    </string>
+    <string name="submit_answer">Romela Karabo</string>
+    <string name="answer_hint">Karabo</string>
+    <string name="wrong_answer_warning">Karabo ea hao e fosahetse</string>
+    <string name="title_activity_advert">Advert Info</string>
+    <string name="title_game_play_activity">Game Demo</string>
+    <string name="saved_level">com.example.gamedomo</string>
+    <string name="correct_answer_label">U Nepile</string>
+    <string name="read_more_label"><u>Read more</u></string>
+    <string name="title_activity_game_home">GameHomeActivity</string>
+    <string name="score_label">Score: %d</string>
+    <string name="level_label">Level: %d</string>
+    <string name="preference_file_key">com.example.gamedemo.preference_file_key</string>
+    <string name="saved_is_db_inicialized_value">saved_is_db_inicialized_value</string>
+    <string name="insufficient_points">You need %d points to proceed</string>
+    <string name="end_of_game">End of Game</string>
 </resources>
