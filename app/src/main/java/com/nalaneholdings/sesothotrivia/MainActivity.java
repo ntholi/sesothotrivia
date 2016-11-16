@@ -1,17 +1,17 @@
 package com.nalaneholdings.sesothotrivia;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.nalaneholdings.sesothotrivia.model.bean.Game;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,31 +20,37 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference database;
     private String mUserId;
 
+    private Button playButton;
+    private Button scoresButton;
+    private Button referencesButton;
+    private Button creditsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        // Initialize Firebase Auth and Database Reference
         mFirebaseAuth = FirebaseAuth.getInstance();
         user = mFirebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
 
         if (user == null) {
-            // Not logged in, launch the Log In activity
             loadLogInView();
         }
+        loadButtons();
 
-        Game game = new Game();
-        game.setName("Sesotho Game");
+    }
 
-        mUserId = user.getUid();
-        database.child("users").child(mUserId).child("games").child(game.getId()).setValue(game);
-
-//        database.child("users").child(mUserId).child("items").push().child("title")
-//                .setValue("My frist data entry");
+    private void loadButtons() {
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/SHOWG.TTF");
+        playButton = (Button) findViewById(R.id.play_button);
+        playButton.setTypeface(custom_font);
+        scoresButton = (Button) findViewById(R.id.scores_button);
+        scoresButton.setTypeface(custom_font);
+        referencesButton = (Button) findViewById(R.id.references_button);
+        referencesButton.setTypeface(custom_font);
+        creditsButton = (Button) findViewById(R.id.credits_button);
+        creditsButton.setTypeface(custom_font);
     }
 
     private void loadLogInView() {

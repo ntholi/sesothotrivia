@@ -39,4 +39,9 @@
     <string name="saved_is_db_inicialized_value">saved_is_db_inicialized_value</string>
     <string name="insufficient_points">You need %d points to proceed</string>
     <string name="end_of_game">End of Game</string>
+    <string name="credits">Liteboho</string>
+    <string name="play">Bapala</string>
+    <string name="references">Lingoloa</string>
+    <string name="scores">Lintlha</string>
+    <string name="copy_right">\u00a9 2016 Nalane Holdings Pty (Ltd)</string>
 </resources>

@@ -1,29 +1,25 @@
 {
   "project_info": {
-    "project_number": "176352067508",
-    "firebase_url": "https://sesotho-trivia.firebaseio.com",
-    "project_id": "sesotho-trivia",
-    "storage_bucket": "sesotho-trivia.appspot.com"
+    "project_number": "513659907191",
+    "firebase_url": "https://sesotho-trivia-8a04e.firebaseio.com",
+    "project_id": "sesotho-trivia-8a04e",
+    "storage_bucket": "sesotho-trivia-8a04e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:176352067508:android:50f73c17ef4c4356",
+        "mobilesdk_app_id": "1:513659907191:android:50f73c17ef4c4356",
         "android_client_info": {
           "package_name": "com.nalaneholdings.sesothotrivia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "176352067508-12aovpl0un8tvm9s2085rp7llut6pge5.apps.googleusercontent.com",
+          "client_id": "513659907191-8nr3sqe5skss6mu6baeh9ovmjt1cr7ra.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDbpHgQ4BdvI7Dgmuyq7hftoDEvqoqyb5E"
-        }
-      ],
+      "api_key": [],
       "services": {
         "analytics_service": {
           "status": 1
