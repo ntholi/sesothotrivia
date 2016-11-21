@@ -37,8 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/play_button"
-                android:textColor="#4F321F"
-                android:layout_marginBottom="6dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginBottom="8dp"
+                android:onClick="onPlay"
                 style="@style/button"/>
 
             <Button
@@ -46,8 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/scores_button"
-                android:layout_marginBottom="6dp"
-                android:textColor="#4F321F"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"
                 style="@style/button"/>
 
             <Button
@@ -55,8 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/references_button"
-                android:layout_marginBottom="6dp"
-                android:textColor="#4F321F"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"
                 style="@style/button"/>
 
             <Button
@@ -64,8 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/credits_button"
-                android:layout_marginBottom="6dp"
-                android:textColor="#4F321F"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimary"
                 style="@style/button"/>
         </LinearLayout>
         <LinearLayout
