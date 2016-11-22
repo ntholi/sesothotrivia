@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         user = mFirebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
 
-//        if (user == null) {
-//            loadLogInView();
-//        }
+        if (user == null) {
+            loadLogInView();
+        }
         loadButtons();
 
     }
