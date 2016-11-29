@@ -1,42 +1,45 @@
 package com.nalaneholdings.sesothotrivia.model.bean;
 
-import android.text.TextUtils;
-
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ntholi.nkhatho on 2016/07/29.
  */
 public class Question {
 
-    private String questionString;
+    //	private String id;
+    private String question;
     private String hint;
-    private String correctAnswer;
+    private String answer;
     private List<String> possibleAnswers;
-    private int attempts;
 
     public Question(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Question(String questionString, String hint, String correctAnswer,
-                    List<String> possibleAnswers, int attempts) {
-        this.questionString = questionString;
+    public Question(String question, String hint, String correctAnswer,
+                    List<String> possibleAnswers) {
+        this.question = question;
         this.hint = hint;
-        this.correctAnswer = correctAnswer;
+        this.answer = correctAnswer;
         this.possibleAnswers = possibleAnswers;
-        this.attempts = attempts;
     }
 
 
-    public String getQuestionString() {
-        return questionString;
+//    public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
+
+    public String getQuestion() {
+        return question;
     }
 
-    public void setQuestionString(String questionString) {
-        this.questionString = questionString;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getHint() {
@@ -47,12 +50,12 @@ public class Question {
         this.hint = hint;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public List<String> getPossibleAnswers() {
@@ -63,27 +66,19 @@ public class Question {
         this.possibleAnswers = possibleAnswers;
     }
 
-    public int getAttempts() {
-        return attempts;
-    }
-
-    public void setAttempts(int attempts) {
-        this.attempts = attempts;
-    }
-
     /**
-     * this is equivalent to the getQuestionString() method
-     * @return returns the questionString
+     * this is equivalent to the getQuestion() method
+     * @return returns the question
      */
     @Override
     public String toString() {
-        return questionString;
+        return question;
     }
 
     public boolean isAnswerCorrect(String answer){
         answer = answer.trim();
-        correctAnswer = correctAnswer.trim();
-        return answer.toLowerCase().contains(correctAnswer.toLowerCase());
+        answer = answer.trim();
+        return answer.toLowerCase().contains(answer.toLowerCase());
     }
 
     public boolean isMultipleChoice() {
