@@ -15,6 +15,7 @@ public class GamePlayer {
     private GameStatus gameStatus;
     private String message;
     private Context context;
+    private int attempts;
 
     public GamePlayer(Context context, GameStatus gameStatus){
         this.context = context;
@@ -56,9 +57,8 @@ public class GamePlayer {
     /**
      * Decrease points based on question attempts, the number of times the user attempted to answer
      * the question
-     * @param attempts Question attempt
      */
-    public void decreasePoints(int attempts){
+    public void decreasePoints(){
         int level = gameStatus.getLevel();
         int points = gameStatus.getPoints();
 
@@ -116,7 +116,7 @@ public class GamePlayer {
            increasePoints();
             correct = true;
         }
-        else decreasePoints(question.getAttempts());
+        else decreasePoints();
 
         return correct;
     }
