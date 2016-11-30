@@ -52,6 +52,14 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             TwoAnswersFragment fragment = new TwoAnswersFragment();
             loadQuestionFragmentByType(fragment);
         }
+        Typeface font_mom = Typeface.createFromAsset(getAssets(), "fonts/MomÂ«t__.ttf");
+        TextView hintTitle = (TextView) findViewById(R.id.hint_title);
+        hintTitle.setTypeface(font_mom);
+
+        Typeface font_courbd = Typeface.createFromAsset(getAssets(), "fonts/courbd.ttf");
+        TextView hint = (TextView) findViewById(R.id.hint);
+        hint.setTypeface(font_courbd);
+        hint.setText(question.getHint());
     }
 
     private void loadQuestionFragmentByType(AnswerFragment fragment) {

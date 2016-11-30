@@ -20,10 +20,10 @@
                 android:layout_height="30dp">
 
                 <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/thebe_br"
-                    android:id="@+id/imageView2"/>
+                    app:srcCompat="@drawable/thebe_br"/>
             </LinearLayout>
 
             <View
@@ -40,74 +40,74 @@
                 android:paddingRight="@dimen/activity_horizontal_margin">
 
                 <RelativeLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp" >
+                    android:layout_height="40dp"
+                    android:orientation="horizontal" >
 
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_lock_power_off"
                         android:id="@+id/stop_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:background="@null"/>
+                        android:background="@null"
+                        app:srcCompat="@android:drawable/ic_lock_power_off"/>
 
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_media_pause"
                         android:id="@+id/pause_button"
-                        android:layout_toRightOf="@id/stop_button"
-                        android:background="@null"/>
-
-                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_media_play"
+                        android:layout_toRightOf="@id/stop_button"
+                        android:background="@null"
+                        app:srcCompat="@android:drawable/ic_media_pause"/>
+
+                    <ImageButton
                         android:id="@+id/start_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/pause_button"
-                        android:background="@null"/>
+                        android:background="@null"
+                        app:srcCompat="@android:drawable/ic_media_play"/>
 
                     <TextView
-                        tools:text="0001"
+                        android:id="@+id/score"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/score"
                         android:layout_alignParentRight="true"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
                         android:background="@drawable/border"
+                        android:gravity="center_vertical"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"/>
+                        tools:text="0001"/>
 
                     <TextView
-                        tools:text="username"
+                        android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_toLeftOf="@id/score"
                         android:gravity="center_vertical"
                         android:paddingRight="20dp"
-                        android:id="@+id/username"
                         android:textColor="#009900"
-                        android:layout_toLeftOf="@id/score"/>
+                        tools:text="username"/>
 
                     <ImageView
+                        android:id="@+id/imageView3"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@drawable/icon_status_online"
-                        android:layout_toLeftOf="@id/username"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:id="@+id/imageView3" />
+                        android:layout_toLeftOf="@id/username"
+                        android:src="@drawable/icon_status_online" />
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/question_view"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center_vertical|center_horizontal"
-                    tools:text="The question will be nicely displayed over here?"
-                    android:layout_marginTop="20dp"/>
+                    android:textSize="18sp"
+                    tools:text="The question will be nicely displayed over here?"/>
                 <FrameLayout
                     android:id="@+id/question_type_fragment"
                     android:name="com.nalaneholdings.sesothotrivia.AnswerFragment"
@@ -121,27 +121,48 @@
                 android:background="@drawable/horizontal_line"/>
 
             <RelativeLayout
-                android:orientation="horizontal"
+                android:id="@+id/hint_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E5E5E5"
-                android:id="@+id/tip_layout">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:background="#EEEEEE">
 
                 <TextView
+                    android:id="@+id/hint_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tip"
+                    android:textColor="@android:color/black"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"/>
+                    android:layout_alignParentStart="true"
+                    android:text="@string/hint" />
+
 
                 <ImageView
+                    android:id="@+id/logo"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:srcCompat="@drawable/logo"
-                    android:id="@+id/logo"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"/>
+                    app:srcCompat="@drawable/logo"/>
+
+                <TextView
+                    android:id="@+id/hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hint_title"
+                    android:layout_toLeftOf="@id/logo"
+                    android:layout_marginTop="12dp"
+                    android:paddingLeft="1dp"
+                    tools:text="This is a hint about the above question and stuff, it's very helpful"/>
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/horizontal_line"/>
 
             <TextView
                 android:layout_width="match_parent"
