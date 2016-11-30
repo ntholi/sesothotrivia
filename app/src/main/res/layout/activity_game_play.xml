@@ -100,14 +100,37 @@
                         android:layout_toLeftOf="@id/username"
                         android:src="@drawable/icon_status_online" />
                 </RelativeLayout>
-                <TextView
-                    android:id="@+id/question_view"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:textSize="18sp"
-                    tools:text="The question will be nicely displayed over here?"/>
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/question_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textSize="18sp"
+                        tools:text="The question will be nicely displayed over here?"/>
+                    <TextView
+                        android:id="@+id/question_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingTop="60dp"
+                        android:paddingBottom="60dp"
+                        android:gravity="center"
+                        tools:text="@string/correct_answer_label"
+
+                        android:textStyle="bold"
+
+                        android:textColor="@color/colorAccent"
+                        android:textSize="50sp"
+                        android:shadowColor="#9E9E9E"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="1.5" />
+                </FrameLayout>
                 <FrameLayout
                     android:id="@+id/question_type_fragment"
                     android:name="com.nalaneholdings.sesothotrivia.AnswerFragment"

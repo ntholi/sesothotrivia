@@ -12,17 +12,19 @@ public class Question {
     private String hint;
     private String answer;
     private List<String> possibleAnswers;
+    private int points;
 
     public Question(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Question(String question, String hint, String correctAnswer,
+    public Question(String question, String hint, String correctAnswer, int points,
                     List<String> possibleAnswers) {
         this.question = question;
         this.hint = hint;
         this.answer = correctAnswer;
         this.possibleAnswers = possibleAnswers;
+        this.points = points;
     }
 
 
@@ -77,12 +79,19 @@ public class Question {
 
     public boolean isAnswerCorrect(String answer){
         answer = answer.trim();
-        answer = answer.trim();
         return answer.toLowerCase().contains(answer.toLowerCase());
     }
 
     public boolean isMultipleChoice() {
         return (possibleAnswers != null) &&
                 (possibleAnswers.size() > 2);
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

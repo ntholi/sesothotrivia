@@ -102,91 +102,25 @@ public class GamePlayer {
         return questions.get(gameStatus.getLevel());
     }
 
-    /**
-     *
-     * @return returns true if level has been incremented
-     */
-    public boolean increaseLevel() {
-        boolean incremented = false;
-        int level = gameStatus.getLevel();
-        int points = gameStatus.getPoints();
-
-        if(level == 1 && points >= 20){
-            ++level;
-            incremented = true;
-        }
-        else if(level >= 2 && points >= 30){
-            ++level;
-            incremented = true;
-        }
-
-        gameStatus.setPoints(points);
-        return incremented;
-    }
-
-    /**
-     * Decrease points based on question attempts, the number of times the user attempted to answer
-     * the question
-     */
-    public void decreasePoints(){
-        int level = gameStatus.getLevel();
-        int points = gameStatus.getPoints();
-
-        if(attempts >= 2 && level <= 5){
-            points -= 3; // TODO: 2016/09/12 Are you sure it doesn't cover level 6 to 10?
-        }
-        else if(level >= 11 && level <= 19){
-            points -= 4;
-        }
-
-        gameStatus.setPoints(points);
-    }
-
     public void increasePoints() {
-        int level = gameStatus.getLevel();
         int points = gameStatus.getPoints();
-
-        if(level == 1){
-            points += 5;
-        }
-        else if(level >= 2 && level <= 4){
-            points += 6;
-        }
-        else if(level >= 5 && level <= 9){
-            points += 8;
-        }
-        else if(level >= 10 && level <= 19){
-            points += 3;
-        }
-        else if(level >= 20){
-            points += 1;
-        }
+        points += getQuestion().getPoints();
         gameStatus.setPoints(points);
     }
 
     public boolean nextLevel(){
-        boolean proceed = false;
         int level = gameStatus.getLevel();
-        int points = gameStatus.getPoints();
-
-        if(level == 1 && points >= 20){
-            proceed = true;
-        }else message = context.getString(R.string.insufficient_points, 20);
-
-        if(level == 2 && points >= 30){
-            proceed = true;
-        } else message = context.getString(R.string.insufficient_points, 30);
-
-        return proceed;
+        gameStatus.setLevel(++level);
+        return true;
     }
 
     public boolean isAnswerCorrect(Question question, String answer) {
         boolean correct = false;
         if(question.isAnswerCorrect(answer)){
-           increasePoints();
+            increasePoints();
             correct = true;
         }
-        else decreasePoints();
+//        else decreasePoints();
 
         return correct;
     }

@@ -13,6 +13,7 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="10dp"
         tools:text="Answer 1"
+        android:onClick="answerSelected"
         style="@style/button"/>
 
     <Button
@@ -22,6 +23,7 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="10dp"
         tools:text="Answer 2"
+        android:onClick="answerSelected"
         style="@style/button"/>
 
     <Button
@@ -31,6 +33,7 @@
         android:textColor="@color/colorPrimary"
         android:layout_marginBottom="10dp"
         tools:text="Answer 3"
+        android:onClick="answerSelected"
         style="@style/button"/>
 
 </LinearLayout>
