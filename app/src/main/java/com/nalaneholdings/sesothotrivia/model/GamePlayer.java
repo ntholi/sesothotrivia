@@ -37,7 +37,6 @@ public class GamePlayer {
         this.gameStatus = new GameStatus();
         if(context instanceof QuestionLoader){
             questionLoader = (QuestionLoader) context;
-            System.out.println("***************************************************************");
         }
         showProgressDialog();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

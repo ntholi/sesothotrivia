@@ -20,9 +20,9 @@
                 android:layout_height="30dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/btn_star_big_on"
+                    app:srcCompat="@drawable/thebe_br"
                     android:id="@+id/imageView2"/>
             </LinearLayout>
 
@@ -34,8 +34,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="430dp"
-                android:background="@drawable/background"
-                android:orientation="vertical">
+                android:background="@drawable/background2"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
 
                 <RelativeLayout
                     android:orientation="horizontal"
@@ -72,7 +74,12 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:id="@+id/score"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/border"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"/>
 
                     <TextView
                         tools:text="username"
@@ -81,7 +88,19 @@
                         android:gravity="center_vertical"
                         android:paddingRight="20dp"
                         android:id="@+id/username"
+                        android:textColor="#009900"
                         android:layout_toLeftOf="@id/score"/>
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/icon_status_online"
+                        android:layout_toLeftOf="@id/username"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/imageView3" />
+
+
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/question_view"
@@ -92,6 +111,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/horizontal_line"/>
 
             <RelativeLayout
                 android:orientation="horizontal"
