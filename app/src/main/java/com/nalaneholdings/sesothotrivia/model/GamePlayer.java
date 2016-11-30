@@ -1,10 +1,21 @@
 package com.nalaneholdings.sesothotrivia.model;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
+import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.R;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class governs the rules of playing a gameStatus
@@ -12,24 +23,46 @@ import com.nalaneholdings.sesothotrivia.model.bean.Question;
  */
 public class GamePlayer {
 
+    private static final String TAG = "GamePlayer";
     private GameStatus gameStatus;
+    private List<Question> questions = new ArrayList<>();
     private String message;
     private Context context;
     private int attempts;
 
-    public GamePlayer(Context context, GameStatus gameStatus){
+
+    public GamePlayer(Context context){
         this.context = context;
-        this.gameStatus = gameStatus;
+        this.gameStatus = new GameStatus();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("questions").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Question question = dataSnapshot.getValue(Question.class);
+                questions.add(question);
+                Log.d(TAG, "Adding question, "+ question.getQuestion());
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
-    public void setGameStatus(GameStatus game) {
-        this.gameStatus = game;
-    }
+
 
     public GameStatus getGameStatus(){return gameStatus;}
 
     public String getMessage() {
         return message;
+    }
+
+    public Question getQuestion(){
+        return questions.get(gameStatus.getLevel());
     }
 
     /**
