@@ -22,7 +22,7 @@
         android:gradientRadius="100"
         android:centerX="50%"
         android:centerY="50%"
-        android:endColor="#CED8F6"
+        android:endColor="@color/brown_100"
         android:startColor="#FFFFFF"
         android:type="radial" />
     <padding

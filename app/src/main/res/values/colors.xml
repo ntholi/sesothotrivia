@@ -10,4 +10,6 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="gray">#444440</color>
+
+    <color name="brown_100">#D7CCC8</color>
 </resources>
