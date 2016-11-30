@@ -7,4 +7,7 @@
     <!--From the google-services example-->
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="gray">#444440</color>
 </resources>
