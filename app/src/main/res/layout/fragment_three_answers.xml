@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal|center_vertical"
+    tools:context="com.nalaneholdings.sesothotrivia.ThreeAnswersFragment">
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/answer_1"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="10dp"
+        tools:text="Answer 1"
+        style="@style/button"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/answer_2"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="10dp"
+        tools:text="Answer 2"
+        style="@style/button"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/answer_3"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="10dp"
+        tools:text="Answer 3"
+        style="@style/button"/>
+
+</LinearLayout>

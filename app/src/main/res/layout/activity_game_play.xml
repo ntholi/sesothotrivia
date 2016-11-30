@@ -33,7 +33,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="430dp"
+                android:layout_height="380dp"
                 android:background="@drawable/background2"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -99,17 +99,20 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:id="@+id/imageView3" />
-
-
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/question_view"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp" />
+                    android:layout_height="100dp"
+                    android:textSize="18sp"
+                    android:gravity="center_vertical|center_horizontal"
+                    tools:text="The question will be nicely displayed over here?"
+                    android:layout_marginTop="20dp"/>
                 <FrameLayout
                     android:id="@+id/question_type_fragment"
+                    android:name="com.nalaneholdings.sesothotrivia.AnswerFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <View

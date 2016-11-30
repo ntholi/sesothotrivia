@@ -1,5 +1,7 @@
 package com.nalaneholdings.sesothotrivia;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,15 +46,21 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         questionView.setText(question.getQuestion());
 
         if (question.isMultipleChoice()) {
-            TwoQuestionsFragment fragment = new TwoQuestionsFragment();
+            ThreeAnswersFragment fragment = new ThreeAnswersFragment();
             loadQuestionFragmentByType(fragment);
         } else {
-            FourQuestionsFragment fragment = new FourQuestionsFragment();
+            TwoAnswersFragment fragment = new TwoAnswersFragment();
             loadQuestionFragmentByType(fragment);
         }
     }
 
-    private void loadQuestionFragmentByType(QuestionFragment fragment) {
+    private void loadQuestionFragmentByType(AnswerFragment fragment) {
+        fragment.setPossibleAnswers(question);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.question_type_fragment, fragment);
+//        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

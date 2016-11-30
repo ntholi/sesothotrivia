@@ -83,6 +83,6 @@ public class Question {
 
     public boolean isMultipleChoice() {
         return (possibleAnswers != null) &&
-                (possibleAnswers.size() > 1);
+                (possibleAnswers.size() > 2);
     }
 }
