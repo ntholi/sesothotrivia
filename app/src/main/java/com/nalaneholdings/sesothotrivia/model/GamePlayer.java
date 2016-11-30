@@ -29,11 +29,17 @@ public class GamePlayer {
     private String message;
     private Context context;
     private int attempts;
+    private QuestionLoader questionLoader;
 
 
     public GamePlayer(Context context){
         this.context = context;
         this.gameStatus = new GameStatus();
+        if(context instanceof QuestionLoader){
+            questionLoader = (QuestionLoader) context;
+            System.out.println("***************************************************************");
+        }
+        showProgressDialog();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("questions").addChildEventListener(new ChildEventListener() {
             @Override
@@ -41,6 +47,12 @@ public class GamePlayer {
                 Question question = dataSnapshot.getValue(Question.class);
                 questions.add(question);
                 Log.d(TAG, "Adding question, "+ question.getQuestion());
+
+                if(questions.size() >= gameStatus.getLevel()){
+                    hideProgressDialog();
+                    if(questionLoader != null)
+                        questionLoader.onQuestionLoaded();
+                }
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -54,6 +66,32 @@ public class GamePlayer {
     }
 
 
+    @VisibleForTesting
+    private ProgressDialog mProgressDialog;
+
+    private void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.setMessage(context.getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    /**
+     * a class that implements this interface will only access only when they are fully downloaded
+     * from the fire base
+     */
+    public interface QuestionLoader{
+        public void onQuestionLoaded();
+    }
 
     public GameStatus getGameStatus(){return gameStatus;}
 

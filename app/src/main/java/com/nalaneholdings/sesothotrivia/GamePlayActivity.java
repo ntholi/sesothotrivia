@@ -17,7 +17,7 @@ import com.nalaneholdings.sesothotrivia.model.bean.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePlayActivity extends AppCompatActivity {
+public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoader{
 
 
     private GamePlayer player;
@@ -34,8 +34,6 @@ public class GamePlayActivity extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.score);
         String score = String.valueOf(player.getGameStatus().getLevel());
         scoreView.setText(score);
-
-//        loadQuestion();
     }
 
     public void loadQuestion() {
@@ -54,5 +52,10 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     private void loadQuestionFragmentByType(QuestionFragment fragment) {
+    }
+
+    @Override
+    public void onQuestionLoaded() {
+        loadQuestion();
     }
 }
