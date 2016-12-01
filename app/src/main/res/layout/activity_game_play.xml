@@ -33,11 +33,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
+                android:layout_height="390dp"
                 android:background="@drawable/background2"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin">
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -102,24 +103,21 @@
                 </RelativeLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="100dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="32dp">
                     <TextView
                         android:id="@+id/question_view"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical|center_horizontal"
                         android:textSize="18sp"
                         tools:text="The question will be nicely displayed over here?"/>
                     <TextView
                         android:id="@+id/question_status"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/activity_horizontal_margin"
-                        android:paddingRight="@dimen/activity_horizontal_margin"
-                        android:paddingTop="60dp"
-                        android:paddingBottom="60dp"
-                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
                         tools:text="@string/correct_answer_label"
 
                         android:textStyle="bold"

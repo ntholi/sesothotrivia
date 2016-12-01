@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimaryDark">#4F321F</color>
     <color name="colorPrimary">#795548</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#64B5F6</color>
 
     <!--From the google-services example-->
     <color name="grey_100">#F5F5F5</color>

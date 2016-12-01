@@ -79,7 +79,7 @@ public class Question {
 
     public boolean isAnswerCorrect(String answer){
         answer = answer.trim();
-        return answer.toLowerCase().contains(answer.toLowerCase());
+        return this.answer.toLowerCase().contains(answer.toLowerCase());
     }
 
     public boolean isMultipleChoice() {
