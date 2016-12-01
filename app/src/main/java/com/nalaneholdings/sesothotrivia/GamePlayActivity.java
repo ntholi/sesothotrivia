@@ -155,7 +155,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     private class NextQuestionLoader implements Runnable {
         private View view;
 
-        public NextQuestionLoader(View view) {
+        NextQuestionLoader(View view) {
             this.view = view;
         }
 

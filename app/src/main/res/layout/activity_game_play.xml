@@ -48,26 +48,26 @@
                     <ImageButton
                         android:id="@+id/stop_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
-                        android:background="@null"
-                        app:srcCompat="@android:drawable/ic_lock_power_off"/>
+                        android:src="@drawable/stop"
+                        android:background="?android:attr/selectableItemBackground"/>
 
                     <ImageButton
                         android:id="@+id/pause_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_toRightOf="@id/stop_button"
-                        android:background="@null"
-                        app:srcCompat="@android:drawable/ic_media_pause"/>
+                        android:src="@drawable/pause"
+                        android:background="?android:attr/selectableItemBackground"/>
 
                     <ImageButton
                         android:id="@+id/start_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_toRightOf="@id/pause_button"
-                        android:background="@null"
-                        app:srcCompat="@android:drawable/ic_media_play"/>
+                        android:src="@drawable/play"
+                        android:background="?android:attr/selectableItemBackground"/>
 
                     <TextView
                         android:id="@+id/score"
