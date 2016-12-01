@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.nalaneholdings.sesothotrivia.Progress;
 import com.nalaneholdings.sesothotrivia.R;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
@@ -21,19 +22,18 @@ import java.util.List;
  * This class governs the rules of playing a gameStatus
  * Created by ntholi.nkhatho on 2016/09/12.
  */
-public class GamePlayer {
+public class GamePlayer extends Progress {
 
     private static final String TAG = "GamePlayer";
     private GameStatus gameStatus;
     private List<Question> questions = new ArrayList<>();
     private String message;
-    private Context context;
     private int attempts;
     private QuestionLoader questionLoader;
 
 
     public GamePlayer(Context context){
-        this.context = context;
+        super(context);
         this.gameStatus = new GameStatus();
         if(context instanceof QuestionLoader){
             questionLoader = (QuestionLoader) context;
@@ -65,24 +65,7 @@ public class GamePlayer {
     }
 
 
-    @VisibleForTesting
-    private ProgressDialog mProgressDialog;
 
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setMessage(context.getString(R.string.loading));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 
     /**
      * a class that implements this interface will only access only when they are fully downloaded

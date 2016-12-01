@@ -3,7 +3,7 @@ package com.nalaneholdings.sesothotrivia.model.bean;
 /**
  * Created by ntholi.nkhatho on 2016/08/11.
  */
-public class Advert extends ID{
+public class Advert {
 
     private String title;
     private String heading;

@@ -49,6 +49,7 @@
                 android:id="@+id/scores_button"
                 android:layout_marginBottom="8dp"
                 android:textColor="@color/colorPrimary"
+                android:onClick="onScores"
                 style="@style/button"/>
 
             <Button

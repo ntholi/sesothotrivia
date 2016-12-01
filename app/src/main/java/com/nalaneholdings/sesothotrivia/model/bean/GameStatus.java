@@ -8,10 +8,12 @@ public class GameStatus{
 
     private int level;
     private int points;
+    private User user;
 
-    public GameStatus(int level, int points) {
+    public GameStatus(int level, int points, User user) {
         this.level = level;
         this.points = points;
+        this.user = user;
     }
 
     public GameStatus() {
@@ -40,4 +42,11 @@ public class GameStatus{
         return false;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -13,18 +13,20 @@ public class Question {
     private String answer;
     private List<String> possibleAnswers;
     private int points;
+    private int level;
 
     public Question(){
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Question(String question, String hint, String correctAnswer, int points,
+    public Question(String question, String hint, String correctAnswer, int points, int level,
                     List<String> possibleAnswers) {
         this.question = question;
         this.hint = hint;
         this.answer = correctAnswer;
         this.possibleAnswers = possibleAnswers;
         this.points = points;
+        this.level = level;
     }
 
 
@@ -93,5 +95,13 @@ public class Question {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
