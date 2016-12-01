@@ -3,6 +3,7 @@ package com.nalaneholdings.sesothotrivia;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -81,12 +82,11 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
     public void answerSelected(View view) {
         if (player.isAnswerCorrect(question, extractAnswer(view))) {
+            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+            mp.start();
             TextView questionView = (TextView) findViewById(R.id.question_view);
-            assert questionView != null;
             questionView.setEnabled(false);
-
             TextView questionStatus = (TextView) findViewById(R.id.question_status);
-            assert questionStatus != null;
             questionStatus.requestFocus();
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
@@ -99,10 +99,15 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
                         Snackbar.LENGTH_LONG).show();
             }
         } else {
+            MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
+            mp.start();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 Button button = (Button) view;
                 button.setBackground(ContextCompat.getDrawable(this, R.drawable.button_wrong_answer));
                 button.setTextColor(ContextCompat.getColor(this, R.color.white));
+            }
+            else {
+                Toast.makeText(this, getString(R.string.wrong_answer_warning), Toast.LENGTH_SHORT).show();
             }
         }
     }
