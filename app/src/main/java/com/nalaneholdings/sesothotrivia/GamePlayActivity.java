@@ -3,10 +3,13 @@ package com.nalaneholdings.sesothotrivia;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -96,8 +99,11 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
                         Snackbar.LENGTH_LONG).show();
             }
         } else {
-            Snackbar.make(view.getRootView(), R.string.wrong_answer_warning,
-                    Snackbar.LENGTH_LONG).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                Button button = (Button) view;
+                button.setBackground(ContextCompat.getDrawable(this, R.drawable.button_wrong_answer));
+                button.setTextColor(ContextCompat.getColor(this, R.color.white));
+            }
         }
     }
 
