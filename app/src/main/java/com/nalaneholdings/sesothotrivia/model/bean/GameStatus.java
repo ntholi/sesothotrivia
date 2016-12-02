@@ -38,7 +38,7 @@ public class GameStatus{
         return user;
     }
 
-    public void setUser(User user) {
+    void setUser(User user) {
         this.user = user;
     }
 }

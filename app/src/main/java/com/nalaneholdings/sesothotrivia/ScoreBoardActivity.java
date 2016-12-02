@@ -54,8 +54,6 @@ public class ScoreBoardActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 GameStatus gameStatus = dataSnapshot.getValue(GameStatus.class);
                 gameStatusList.add(gameStatus);
-
-                Log.d(TAG, gameStatus.getUser().getDisplayName()+ "'s status loaded");
                 hideProgressDialog();
             }
             @Override

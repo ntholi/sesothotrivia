@@ -37,7 +37,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
-        player = new GamePlayer(this, user);
+        player = new GamePlayer(this);
 
         TextView username = (TextView) findViewById(R.id.username);
         username.setText(user != null ? getFirstName(user) : "unregistered");
@@ -50,7 +50,8 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     @Override
     protected void onPause() {
         super.onPause();
-        database.child(GameStatus.NAME).child(user.getUid()).setValue(player.getGameStatus());
+        GameStatus status = player.getGameStatus();
+        database.child(GameStatus.NAME).child(user.getUid()).setValue(status);
 
     }
 

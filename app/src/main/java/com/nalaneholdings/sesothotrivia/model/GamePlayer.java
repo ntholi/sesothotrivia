@@ -25,15 +25,16 @@ public class GamePlayer extends Progress {
 
     private static final String TAG = "GamePlayer";
     private GameStatus gameStatus;
-    private List<Question> questions = new ArrayList<>();
+    private List<Question> questions;
     private String message;
     private int attempts;
     private QuestionLoader questionLoader;
 
 
-    public GamePlayer(Context context, FirebaseUser user){
+    public GamePlayer(Context context){
         super(context);
         gameStatus = GameStatusHelper.getGameStatus();
+        questions = new ArrayList<>();
         if(context instanceof QuestionLoader){
             questionLoader = (QuestionLoader) context;
         }
@@ -46,7 +47,7 @@ public class GamePlayer extends Progress {
                 questions.add(question);
                 Log.d(TAG, "Adding question, "+ question.getQuestion());
 
-                if(questions.size() >= gameStatus.getLevel()){
+                if(questions.size() > gameStatus.getLevel()){
                     hideProgressDialog();
                     if(questionLoader != null)
                         questionLoader.onQuestionLoaded();
@@ -81,6 +82,7 @@ public class GamePlayer extends Progress {
     }
 
     public Question getQuestion(){
+        System.out.println("xxx question at level: "+ gameStatus.getLevel());
         return questions.get(gameStatus.getLevel());
     }
 

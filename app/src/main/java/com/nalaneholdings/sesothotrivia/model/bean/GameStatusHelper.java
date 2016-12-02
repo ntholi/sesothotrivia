@@ -33,11 +33,13 @@ public class GameStatusHelper {
         mDatabase.child(GameStatus.NAME).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                gameStatus = dataSnapshot.child(firebaseUser.getUid()).getValue(GameStatus.class);
-                if(gameStatus == null){
+                gameStatus = dataSnapshot.getValue(GameStatus.class);
+                if(gameStatus == null ){
                     gameStatus = new GameStatus();
                 }
-
+                else if (!user.getUserID().equals(dataSnapshot.getKey())){
+                    gameStatus = new GameStatus();
+                }
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
