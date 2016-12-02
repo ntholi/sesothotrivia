@@ -38,17 +38,17 @@ public class GameStatusHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 gameStatus = dataSnapshot.getValue(GameStatus.class);
+                User user = userFromFirebase(firebaseUser);
                 if(gameStatus == null){
                     gameStatus = new GameStatus();
-                    User user = userFromFirebase(firebaseUser);
-                    gameStatus.setUser(user);
                 }
+                gameStatus.setUser(user);
                 gameStatusLoader.onGameStatusLoaded();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                
+
             }
         });
 
