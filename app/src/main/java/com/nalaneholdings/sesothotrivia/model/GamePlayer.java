@@ -3,7 +3,6 @@ package com.nalaneholdings.sesothotrivia.model;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,15 +27,15 @@ public class GamePlayer extends Progress {
     private List<Question> questions;
     private String message;
     private int attempts;
-    private QuestionLoader questionLoader;
+    private QuestionLoadable questionLoader;
 
 
     public GamePlayer(Context context){
         super(context);
         gameStatus = GameStatusHelper.getGameStatus();
         questions = new ArrayList<>();
-        if(context instanceof QuestionLoader){
-            questionLoader = (QuestionLoader) context;
+        if(context instanceof QuestionLoadable){
+            questionLoader = (QuestionLoadable) context;
         }
         showProgressDialog();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -71,7 +70,7 @@ public class GamePlayer extends Progress {
      * a class that implements this interface will only access only when they are fully downloaded
      * from the fire base
      */
-    public interface QuestionLoader{
+    public interface QuestionLoadable {
         public void onQuestionLoaded();
     }
 

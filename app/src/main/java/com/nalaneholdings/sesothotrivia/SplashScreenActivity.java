@@ -14,7 +14,11 @@ import com.nalaneholdings.sesothotrivia.model.bean.GameStatusHelper;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity implements GameStatusHelper.GameStatusLoadable {
+
+
+    private final GameStatusHelper.GameStatusLoadable instance = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -25,18 +29,15 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run(){
                 try{
                     int sleep = 3000;
-                    sleep(1000);
+                    sleep(10);
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null){
-                        GameStatusHelper.initialize();
+                        GameStatusHelper.initialize(instance);
                         sleep = 100;
                     }
                     sleep(sleep);
-                }catch(InterruptedException e){
+                }catch(InterruptedException e) {
                     e.printStackTrace();
-                }finally{
-                    Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                    startActivity(intent);
                 }
             }
         };
@@ -48,5 +49,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onPause();
         finish();
+    }
+
+    @Override
+    public void onGameStatusLoaded() {
+        Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

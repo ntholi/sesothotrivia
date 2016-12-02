@@ -23,7 +23,7 @@ import com.nalaneholdings.sesothotrivia.model.GamePlayer;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
-public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoader{
+public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoadable {
 
     private GamePlayer player;
     private Question question;
