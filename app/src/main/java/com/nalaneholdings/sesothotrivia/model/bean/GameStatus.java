@@ -5,20 +5,12 @@ package com.nalaneholdings.sesothotrivia.model.bean;
  */
 
 public class GameStatus{
-
+    public static final String NAME = "GameStatus";
     private int level;
     private int points;
     private User user;
 
-    public GameStatus(int level, int points, User user) {
-        this.level = level;
-        this.points = points;
-        this.user = user;
-    }
-
-    public GameStatus() {
-
-    }
+    GameStatus() {}
 
 
     public int getLevel() {

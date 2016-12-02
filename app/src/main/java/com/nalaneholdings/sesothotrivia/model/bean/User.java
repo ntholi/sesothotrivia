@@ -10,25 +10,15 @@ public class User {
     private String email;
     private String displayName;
     private String photoURL;
-    private boolean disabled;
 
-    public User(String userID, String email, String displayName, String photoURL, boolean disabled) {
-        this.userID = userID;
+    public User(String email, String displayName, String photoURL, boolean disabled) {
         this.email = email;
         this.displayName = displayName;
         this.photoURL = photoURL;
-        this.disabled = disabled;
     }
 
     public User(){}
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
 
     public String getEmail() {
         return email;
@@ -54,11 +44,11 @@ public class User {
         this.photoURL = photoURL;
     }
 
-    public boolean isDisabled() {
-        return disabled;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setDisabled(boolean disabled) {
-        this.disabled = disabled;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

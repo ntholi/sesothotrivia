@@ -1,18 +1,17 @@
 package com.nalaneholdings.sesothotrivia.model;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.Progress;
-import com.nalaneholdings.sesothotrivia.R;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
+import com.nalaneholdings.sesothotrivia.model.bean.GameStatusHelper;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
 import java.util.ArrayList;
@@ -32,9 +31,9 @@ public class GamePlayer extends Progress {
     private QuestionLoader questionLoader;
 
 
-    public GamePlayer(Context context){
+    public GamePlayer(Context context, FirebaseUser user){
         super(context);
-        this.gameStatus = new GameStatus();
+        gameStatus = GameStatusHelper.getGameStatus();
         if(context instanceof QuestionLoader){
             questionLoader = (QuestionLoader) context;
         }

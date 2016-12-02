@@ -16,7 +16,11 @@
 package com.nalaneholdings.sesothotrivia.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +32,7 @@ import com.nalaneholdings.sesothotrivia.R;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.User;
 
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -72,8 +77,10 @@ public class ScoreBoardAdapter extends RecyclerView.Adapter<ScoreBoardAdapter.My
         GameStatus gameStatus = gameStatusList.get(position);
         User user = gameStatus.getUser();
         holder.name.setText(user.getDisplayName());
-//        holder.avatar.setImageResource(user.getPhotoURL());
         holder.points.setText(String.valueOf(gameStatus.getPoints()));
+        new DownloadImageTask(holder.avatar)
+                .execute(user.getPhotoURL());
+
     }
 
     @Override
@@ -81,4 +88,29 @@ public class ScoreBoardAdapter extends RecyclerView.Adapter<ScoreBoardAdapter.My
         return gameStatusList.size();
     }
 
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urlDisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urlDisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+
+    }
 }

@@ -16,13 +16,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.adapters.ScoreBoardAdapter;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
-import com.nalaneholdings.sesothotrivia.model.bean.Question;
-import com.nalaneholdings.sesothotrivia.model.bean.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreBoardActivity extends AppCompatActivity {
+    private static final String TAG = "ScoreBoardActivity";
     private List<GameStatus> gameStatusList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ScoreBoardAdapter adapter;
@@ -50,11 +49,13 @@ public class ScoreBoardActivity extends AppCompatActivity {
     private void prepareMovieData() {
         showProgressDialog();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("questions").addChildEventListener(new ChildEventListener() {
+        mDatabase.child(GameStatus.NAME).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 GameStatus gameStatus = dataSnapshot.getValue(GameStatus.class);
                 gameStatusList.add(gameStatus);
+
+                Log.d(TAG, gameStatus.getUser().getDisplayName()+ "'s status loaded");
                 hideProgressDialog();
             }
             @Override

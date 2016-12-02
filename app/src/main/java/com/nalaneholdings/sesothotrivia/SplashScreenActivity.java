@@ -5,6 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
+import com.nalaneholdings.sesothotrivia.model.bean.GameStatusHelper;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -19,7 +24,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-                    sleep(3000);
+                    int sleep = 3000;
+                    sleep(1000);
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null){
+                        GameStatusHelper.initialize();
+                        sleep = 100;
+                    }
+                    sleep(sleep);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{

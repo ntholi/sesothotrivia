@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,28 +17,41 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.model.GamePlayer;
+import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
 public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoader{
 
-
     private GamePlayer player;
     private Question question;
+    private FirebaseUser user;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
-        player = new GamePlayer(this);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference();
+        player = new GamePlayer(this, user);
+
         TextView username = (TextView) findViewById(R.id.username);
         username.setText(user != null ? getFirstName(user) : "unregistered");
         Typeface font_stan = Typeface.createFromAsset(getAssets(), "fonts/STAN0755.TTF");
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setTypeface(font_stan);
+    }
 
-        displayScore();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        database.child(GameStatus.NAME).child(user.getUid()).setValue(player.getGameStatus());
+
     }
 
     private String getFirstName(FirebaseUser user) {
@@ -142,7 +154,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
     private void displayScore() {
         TextView scoreView = (TextView) findViewById(R.id.score);
-        String score = String.format("%04d", player.getGameStatus().getLevel());
+        String score = String.format("%04d", player.getGameStatus().getPoints());
         scoreView.setText(score);
     }
 
