@@ -27,10 +27,6 @@ public class GameStatusHelper {
         if(firebaseUser == null){
             throw new ExceptionInInitializerError("User not logged in, GameStatus cannot be initialized");
         }
-        gameStatus = new GameStatus();
-        User user = userFromFirebase(firebaseUser);
-        gameStatus.setUser(user);
-
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child(GameStatus.NAME);
         Query queryRef = mDatabase.orderByChild("user/userID").equalTo(firebaseUser.getUid());

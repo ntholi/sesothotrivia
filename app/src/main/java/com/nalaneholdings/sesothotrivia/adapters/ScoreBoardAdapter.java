@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,7 +52,7 @@ public class ScoreBoardAdapter extends RecyclerView.Adapter<ScoreBoardAdapter.My
         TextView name;
         ImageView avatar;
         TextView points;
-        RelativeLayout layout;
+        LinearLayout layout;
 
         MyViewHolder(View view) {
             super(view);
@@ -59,7 +60,7 @@ public class ScoreBoardAdapter extends RecyclerView.Adapter<ScoreBoardAdapter.My
             avatar = (ImageView) view.findViewById(R.id.avatar);
             points = (TextView) view.findViewById(R.id.points);
 
-            layout = (RelativeLayout) view.findViewById(R.id.score_list_row);
+            layout = (LinearLayout) view.findViewById(R.id.score_list_row);
             context = view.getContext();
         }
     }
