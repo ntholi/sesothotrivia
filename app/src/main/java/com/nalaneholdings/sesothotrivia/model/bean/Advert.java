@@ -10,7 +10,7 @@ public class Advert {
     private String body;
 
     public Advert(){
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Player.class)
     }
 
     public Advert(String title, String heading, String body) {

@@ -16,7 +16,7 @@ public class Question {
     private int level;
 
     public Question(){
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Player.class)
     }
 
     public Question(String question, String hint, String correctAnswer, int points, int level,

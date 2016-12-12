@@ -6,16 +6,16 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nalaneholdings.sesothotrivia.model.bean.GameStatusHelper;
+import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class SplashScreenActivity extends AppCompatActivity implements GameStatusHelper.GameStatusLoadable {
+public class SplashScreenActivity extends AppCompatActivity implements PlayerFactory.PlayerLoadable {
 
 
-    private final GameStatusHelper.GameStatusLoadable instance = this;
+    private final PlayerFactory.PlayerLoadable instance = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GameStatu
                 try{
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null){
-                        GameStatusHelper.initialize(instance);
+                        PlayerFactory.initialize(instance);
                     }
                     else {
                         sleep(3000);
@@ -53,7 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity implements GameStatu
     }
 
     @Override
-    public void onGameStatusLoaded() {
+    public void onPlayerLoaded() {
         callNextActivity();
     }
 }

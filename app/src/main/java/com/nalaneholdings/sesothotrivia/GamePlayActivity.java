@@ -21,11 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.model.GamePlayer;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
+import com.nalaneholdings.sesothotrivia.model.bean.Player;
+import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
 public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoadable {
 
-    private GamePlayer player;
+    private GamePlayer game;
     private Question question;
     private FirebaseUser user;
     private DatabaseReference database;
@@ -37,7 +39,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
-        player = new GamePlayer(this);
+        game = new GamePlayer(this);
 
         TextView username = (TextView) findViewById(R.id.username);
         username.setText(user != null ? getFirstName(user) : "unregistered");
@@ -50,8 +52,8 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     @Override
     protected void onPause() {
         super.onPause();
-        GameStatus status = player.getGameStatus();
-        database.child(GameStatus.NAME).child(user.getUid()).setValue(status);
+        Player player = PlayerFactory.getPlayer();
+        database.child(Player.NAME).child(user.getUid()).setValue(player);
 
     }
 
@@ -61,7 +63,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     }
 
     public void loadQuestion() {
-        question = player.getQuestion();
+        question = game.getQuestion();
         Typeface font_school = Typeface.createFromAsset(getAssets(), "fonts/Schoolbell.ttf");
         TextView questionView = (TextView) findViewById(R.id.question_view);
         questionView.setTypeface(font_school);
@@ -94,7 +96,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     }
 
     public void answerSelected(View view) {
-        if (player.isAnswerCorrect(question, extractAnswer(view))) {
+        if (game.isAnswerCorrect(question, extractAnswer(view))) {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
             mp.start();
             TextView questionView = (TextView) findViewById(R.id.question_view);
@@ -103,12 +105,12 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             questionStatus.requestFocus();
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
-            if(player.nextLevel()){
+            if(game.nextLevel()){
                 Handler delayHandler = new Handler();
                 delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
             }
             else{
-                Snackbar.make(view.getRootView(), player.getMessage(),
+                Snackbar.make(view.getRootView(), game.getMessage(),
                         Snackbar.LENGTH_LONG).show();
             }
         } else {
@@ -155,7 +157,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
     private void displayScore() {
         TextView scoreView = (TextView) findViewById(R.id.score);
-        String score = String.format("%04d", player.getGameStatus().getPoints());
+        String score = String.format("%04d", game.getGameStatus().getPoints());
         scoreView.setText(score);
     }
 

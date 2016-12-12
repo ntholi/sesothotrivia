@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.Progress;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
-import com.nalaneholdings.sesothotrivia.model.bean.GameStatusHelper;
+import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class GamePlayer extends Progress {
 
     public GamePlayer(Context context){
         super(context);
-        gameStatus = GameStatusHelper.getGameStatus();
+        gameStatus = PlayerFactory.getPlayer().getGameStatus();
         questions = new ArrayList<>();
         if(context instanceof QuestionLoadable){
             questionLoader = (QuestionLoadable) context;

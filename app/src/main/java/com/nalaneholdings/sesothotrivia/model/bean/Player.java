@@ -4,20 +4,23 @@ package com.nalaneholdings.sesothotrivia.model.bean;
  * Created by ntholi.nkhatho on 2016/12/01.
  */
 
-public class User {
+public class Player {
 
-    private String userID;
+    public static final String NAME = "players";
+
     private String email;
     private String displayName;
     private String photoURL;
+    private GameStatus gameStatus;
 
-    public User(String email, String displayName, String photoURL, boolean disabled) {
+    public Player(String email, String displayName, String photoURL, GameStatus gameStatus) {
         this.email = email;
         this.displayName = displayName;
         this.photoURL = photoURL;
+        this.gameStatus = gameStatus;
     }
 
-    public User(){}
+    public Player(){}
 
 
     public String getEmail() {
@@ -44,11 +47,11 @@ public class User {
         this.photoURL = photoURL;
     }
 
-    public String getUserID() {
-        return userID;
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }
 }

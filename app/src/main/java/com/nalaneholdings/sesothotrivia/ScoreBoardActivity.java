@@ -8,27 +8,19 @@ import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.nalaneholdings.sesothotrivia.adapters.ScoreBoardAdapter;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
-import com.nalaneholdings.sesothotrivia.model.bean.User;
+import com.nalaneholdings.sesothotrivia.model.bean.Player;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -46,7 +38,7 @@ public class ScoreBoardActivity extends AppCompatActivity {
     ScaleAnimation shrinkAnim;
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
-    private FirebaseRecyclerAdapter<GameStatus, MyViewHolder> adapter;
+    private FirebaseRecyclerAdapter<Player, MyViewHolder> adapter;
 
 
 
@@ -68,19 +60,18 @@ public class ScoreBoardActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         showProgressDialog();
-        DatabaseReference dataRef = mDatabase.child(GameStatus.NAME).getRef();
-        adapter = new FirebaseRecyclerAdapter<GameStatus, MyViewHolder>(
-                GameStatus.class,
+        DatabaseReference dataRef = mDatabase.child(Player.NAME).getRef();
+        adapter = new FirebaseRecyclerAdapter<Player, MyViewHolder>(
+                Player.class,
                 R.layout.list_item_game_score,
                 MyViewHolder.class,
                 dataRef) {
             @Override
-            protected void populateViewHolder(MyViewHolder holder, GameStatus gameStatus, int position) {
-                User user = gameStatus.getUser();
-                holder.name.setText(user.getDisplayName());
-                holder.points.setText(String.valueOf(gameStatus.getPoints()));
+            protected void populateViewHolder(MyViewHolder holder, Player player, int position) {
+                holder.name.setText(player.getDisplayName());
+                holder.points.setText(String.valueOf(player.getGameStatus().getPoints()));
                 new DownloadImageTask(holder.avatar)
-                        .execute(user.getPhotoURL());
+                        .execute(player.getPhotoURL());
                 hideProgressDialog();
             }
         };
