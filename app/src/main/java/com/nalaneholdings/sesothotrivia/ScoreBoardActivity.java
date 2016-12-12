@@ -28,14 +28,11 @@ import java.util.List;
 
 public class ScoreBoardActivity extends AppCompatActivity {
     private static final String TAG = "ScoreBoardActivity";
-    private List<GameStatus> gameStatusList = new ArrayList<>();
-    private RecyclerView recyclerView;
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
 
     private FloatingActionButton fab;
 
-    ScaleAnimation shrinkAnim;
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
     private FirebaseRecyclerAdapter<Player, MyViewHolder> adapter;
@@ -60,7 +57,7 @@ public class ScoreBoardActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         showProgressDialog();
-        DatabaseReference dataRef = mDatabase.child(Player.NAME).getRef();
+        DatabaseReference dataRef = mDatabase.child(Player.NAME).orderByChild("gameStatus/points").getRef();
         adapter = new FirebaseRecyclerAdapter<Player, MyViewHolder>(
                 Player.class,
                 R.layout.list_item_game_score,
