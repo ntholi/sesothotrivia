@@ -46,7 +46,7 @@ public class GamePlayer extends Progress {
                 questions.add(question);
                 Log.d(TAG, "Adding question, "+ question.getQuestion());
 
-                if(questions.size() > gameStatus.getLevel()){
+                if(questions != null && questions.size() > gameStatus.getLevel()){
                     hideProgressDialog();
                     if(questionLoader != null)
                         questionLoader.onQuestionLoaded();

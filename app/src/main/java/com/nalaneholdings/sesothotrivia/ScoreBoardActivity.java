@@ -38,7 +38,6 @@ public class ScoreBoardActivity extends AppCompatActivity {
     private static final String TAG = "ScoreBoardActivity";
     private List<GameStatus> gameStatusList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ScoreBoardAdapter adapter;
     @VisibleForTesting
     private ProgressDialog mProgressDialog;
 
@@ -47,6 +46,7 @@ public class ScoreBoardActivity extends AppCompatActivity {
     ScaleAnimation shrinkAnim;
     private RecyclerView mRecyclerView;
     private StaggeredGridLayoutManager mLayoutManager;
+    private FirebaseRecyclerAdapter<GameStatus, MyViewHolder> adapter;
 
 
 
@@ -64,77 +64,60 @@ public class ScoreBoardActivity extends AppCompatActivity {
             mRecyclerView.setHasFixedSize(true);
         }
         //using staggered grid pattern in recyclerview
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //Say Hello to our new FirebaseUI android Element, i.e., FirebaseRecyclerAdapter
-        FirebaseRecyclerAdapter<GameStatus, MyViewHolder> adapter = new FirebaseRecyclerAdapter<GameStatus, MyViewHolder>(
+        showProgressDialog();
+        DatabaseReference dataRef = mDatabase.child(GameStatus.NAME).getRef();
+        adapter = new FirebaseRecyclerAdapter<GameStatus, MyViewHolder>(
                 GameStatus.class,
                 R.layout.list_item_game_score,
                 MyViewHolder.class,
-                //referencing the node where we want the database to store the data from our Object
-                mDatabase.child(GameStatus.NAME).getRef()) {
+                dataRef) {
             @Override
             protected void populateViewHolder(MyViewHolder holder, GameStatus gameStatus, int position) {
                 User user = gameStatus.getUser();
                 holder.name.setText(user.getDisplayName());
                 holder.points.setText(String.valueOf(gameStatus.getPoints()));
-//                new ScoreBoardAdapter.DownloadImageTask(holder.avatar)
-//                        .execute(user.getPhotoURL());
-//                Picasso.with(MainActivity.this).load(model.getMoviePoster()).into(viewHolder.ivMoviePoster);
+                new DownloadImageTask(holder.avatar)
+                        .execute(user.getPhotoURL());
+                hideProgressDialog();
             }
         };
 
         mRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
-//    private void prepareMovieData() {
-//        showProgressDialog();
-//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-//        mDatabase.child(GameStatus.NAME).orderByChild("points").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                GameStatus gameStatus = dataSnapshot.getValue(GameStatus.class);
-//                gameStatusList.add(gameStatus);
-//
-//                adapter.notifyDataSetChanged();
-//
-//                hideProgressDialog();
-//            }
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-//    }
-//
-//    protected void showProgressDialog() {
-//        if (mProgressDialog == null) {
-//            mProgressDialog = new ProgressDialog(this);
-//            mProgressDialog.setMessage(getString(R.string.loading));
-//            mProgressDialog.setIndeterminate(true);
-//        }
-//
-//        mProgressDialog.show();
-//    }
-//
-//    protected void hideProgressDialog() {
-//        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-//            mProgressDialog.dismiss();
-//        }
-//    }
-//
+    protected void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    protected void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter.cleanup();
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView name;
         ImageView avatar;
         TextView points;
 
-        MyViewHolder(View view) {
+        public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             avatar = (ImageView) view.findViewById(R.id.avatar);
