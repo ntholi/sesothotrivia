@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.nalaneholdings.sesothotrivia.model.AdvertFactory;
 import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
 
 /**
@@ -27,6 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity implements PlayerFac
                 try{
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null){
+                        AdvertFactory.initialize();
                         PlayerFactory.initialize(instance);
                     }
                     else {
