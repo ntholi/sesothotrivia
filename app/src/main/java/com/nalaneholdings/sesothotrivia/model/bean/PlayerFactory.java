@@ -27,8 +27,6 @@ public class PlayerFactory {
 
         if (player != null) return;
 
-        //Enable Offline Capabilities
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(Player.NAME);
         mDatabase.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
