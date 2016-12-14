@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Player;
 
@@ -57,12 +58,13 @@ public class ScoreBoardActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         showProgressDialog();
-        DatabaseReference dataRef = mDatabase.child(Player.NAME).orderByChild("gameStatus/points").getRef();
+        DatabaseReference dataRef = mDatabase.child(Player.NAME);
+        Query queryRef = dataRef.orderByChild("reverseRating");
         adapter = new FirebaseRecyclerAdapter<Player, MyViewHolder>(
                 Player.class,
                 R.layout.list_item_game_score,
                 MyViewHolder.class,
-                dataRef) {
+                queryRef) {
             @Override
             protected void populateViewHolder(MyViewHolder holder, Player player, int position) {
                 holder.name.setText(player.getDisplayName());
