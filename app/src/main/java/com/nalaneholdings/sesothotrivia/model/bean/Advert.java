@@ -5,27 +5,21 @@ package com.nalaneholdings.sesothotrivia.model.bean;
  */
 public class Advert {
 
-    private String title;
-    private String heading;
+    public static final String NAME = "adverts";
+    
+    private int advertiserID;
     private String body;
+    private Advertiser advertiser;
 
     public Advert(){
         // Default constructor required for calls to DataSnapshot.getValue(Player.class)
     }
 
-    public Advert(String title, String heading, String body) {
-        this.title = title;
-        this.heading = heading;
+    public Advert(int advertiserID, String body) {
+        this.advertiserID = advertiserID;
         this.body = body;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getBody() {
         return body;
@@ -35,12 +29,19 @@ public class Advert {
         this.body = body;
     }
 
-
-    public String getHeading() {
-        return heading;
+    public int getAdvertiserID() {
+        return advertiserID;
     }
 
-    public void setHeading(String heading) {
-        this.heading = heading;
+    public void setAdvertiserID(int advertiserID) {
+        this.advertiserID = advertiserID;
+    }
+
+    public Advertiser getAdvertiser() {
+        return advertiser;
+    }
+
+    public void setAdvertiser(Advertiser advertiser) {
+        this.advertiser = advertiser;
     }
 }
