@@ -16,24 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser user;
-    private DatabaseReference database;
-    private String mUserId;
-
-    private Button playButton;
-    private Button scoresButton;
-    private Button referencesButton;
-    private Button creditsButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        user = mFirebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
 
         if (user == null) {
             loadLogInView();
@@ -44,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadButtons() {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/SHOWG.TTF");
-        playButton = (Button) findViewById(R.id.play_button);
+        Button playButton = (Button) findViewById(R.id.play_button);
         playButton.setTypeface(custom_font);
-        scoresButton = (Button) findViewById(R.id.scores_button);
+        Button scoresButton = (Button) findViewById(R.id.scores_button);
         scoresButton.setTypeface(custom_font);
-        referencesButton = (Button) findViewById(R.id.references_button);
+        Button referencesButton = (Button) findViewById(R.id.references_button);
         referencesButton.setTypeface(custom_font);
-        creditsButton = (Button) findViewById(R.id.credits_button);
+        Button creditsButton = (Button) findViewById(R.id.credits_button);
         creditsButton.setTypeface(custom_font);
     }
 
