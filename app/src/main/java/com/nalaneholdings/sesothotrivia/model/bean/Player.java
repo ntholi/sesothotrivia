@@ -12,12 +12,14 @@ public class Player {
     private String displayName;
     private String photoURL;
     private GameStatus gameStatus;
+    private int reverseRating;
 
-    public Player(String email, String displayName, String photoURL, GameStatus gameStatus) {
+    public Player(String email, String displayName, String photoURL, GameStatus gameStatus, int reverseRating) {
         this.email = email;
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.gameStatus = gameStatus;
+        this.reverseRating = reverseRating;
     }
 
     public Player(){}
@@ -53,5 +55,17 @@ public class Player {
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
+    }
+
+    public int getReverseRating() {
+        return reverseRating;
+    }
+
+    public void setReverseRating(int reverseRating) {
+        this.reverseRating = reverseRating;
+    }
+
+    public void applyReverseRating(){
+        reverseRating = 0 - gameStatus.getPoints();
     }
 }

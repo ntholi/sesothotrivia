@@ -53,6 +53,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     protected void onPause() {
         super.onPause();
         Player player = PlayerFactory.getPlayer();
+        player.applyReverseRating();
         database.child(Player.NAME).child(user.getUid()).setValue(player);
 
     }
