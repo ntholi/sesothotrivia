@@ -6,8 +6,8 @@ package com.nalaneholdings.sesothotrivia.model.bean;
 public class Advert {
 
     public static final String NAME = "adverts";
-    
-    private int advertiserID;
+
+    private String advertiserID;
     private String body;
     private Advertiser advertiser;
 
@@ -15,7 +15,7 @@ public class Advert {
         // Default constructor required for calls to DataSnapshot.getValue(Player.class)
     }
 
-    public Advert(int advertiserID, String body) {
+    public Advert(String advertiserID, String body) {
         this.advertiserID = advertiserID;
         this.body = body;
     }
@@ -29,11 +29,11 @@ public class Advert {
         this.body = body;
     }
 
-    public int getAdvertiserID() {
+    public String getAdvertiserID() {
         return advertiserID;
     }
 
-    public void setAdvertiserID(int advertiserID) {
+    public void setAdvertiserID(String advertiserID) {
         this.advertiserID = advertiserID;
     }
 
