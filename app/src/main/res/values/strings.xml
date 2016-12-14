@@ -79,8 +79,8 @@
     <string name="correct_answer_label">U Nepile</string>
     <string name="read_more_label"><u>Read more</u></string>
     <string name="title_activity_game_home">GameHomeActivity</string>
-    <string name="score_label">Score: %d</string>
-    <string name="level_label">Level: %d</string>
+    <string name="points">Points: %d</string>
+    <string name="level">Level: %d</string>
     <string name="preference_file_key">com.example.gamedemo.preference_file_key</string>
     <string name="saved_is_db_inicialized_value">saved_is_db_inicialized_value</string>
     <string name="insufficient_points">You need %d points to proceed</string>

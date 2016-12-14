@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +19,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Player;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ScoreBoardActivity extends AppCompatActivity {
     private static final String TAG = "ScoreBoardActivity";
@@ -68,7 +64,8 @@ public class ScoreBoardActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(MyViewHolder holder, Player player, int position) {
                 holder.name.setText(player.getDisplayName());
-                holder.points.setText(String.valueOf(player.getGameStatus().getPoints()));
+                holder.level.setText(getString(R.string.level, player.getGameStatus().getLevel()));
+                holder.points.setText(getString(R.string.points, player.getGameStatus().getPoints()));
                 new DownloadImageTask(holder.avatar)
                         .execute(player.getPhotoURL());
                 hideProgressDialog();
@@ -105,12 +102,14 @@ public class ScoreBoardActivity extends AppCompatActivity {
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView name;
         ImageView avatar;
+        TextView level;
         TextView points;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
             avatar = (ImageView) view.findViewById(R.id.avatar);
+            level = (TextView) view.findViewById(R.id.level);
             points = (TextView) view.findViewById(R.id.points);
         }
     }

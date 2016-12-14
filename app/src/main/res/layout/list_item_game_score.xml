@@ -12,9 +12,8 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        card_view:cardElevation="5dp"
-        card_view:cardCornerRadius="4dp">
+        android:layout_margin="3dp"
+        card_view:cardElevation="3dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/avatar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/avatar"/>
 
             <TextView
@@ -40,11 +39,20 @@
                 android:id="@+id/points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:textColor="@android:color/darker_gray"
+                tools:text="Level 1"
+                android:layout_below="@id/name"
+                android:layout_toRightOf="@id/avatar"/>
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/activity_vertical_margin"
                 android:textColor="@android:color/darker_gray"
                 tools:text="50 Points"
-                android:layout_below="@id/name"
+                android:layout_below="@id/points"
                 android:layout_toRightOf="@id/avatar"/>
 
         </RelativeLayout>
