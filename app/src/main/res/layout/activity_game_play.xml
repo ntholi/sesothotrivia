@@ -186,6 +186,7 @@
                 android:background="@drawable/horizontal_line"/>
 
             <TextView
+                android:id="@+id/advert"
                 android:layout_width="match_parent"
                 android:layout_height="100dp" />
         </LinearLayout>

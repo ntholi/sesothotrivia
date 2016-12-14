@@ -19,7 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.nalaneholdings.sesothotrivia.model.AdvertFactory;
 import com.nalaneholdings.sesothotrivia.model.GamePlayer;
+import com.nalaneholdings.sesothotrivia.model.bean.Advert;
 import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Player;
 import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
@@ -47,7 +49,6 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setTypeface(font_stan);
     }
-
 
     @Override
     protected void onPause() {
@@ -92,7 +93,6 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.question_type_fragment, fragment);
-//        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -162,10 +162,18 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         scoreView.setText(score);
     }
 
+    private void loadAdvert(){
+        TextView advertView = (TextView) findViewById(R.id.advert);
+        Advert advert = AdvertFactory.getAdvert();
+        advertView.setText(advert.getBody());
+
+    }
+
     @Override
     public void onQuestionLoaded() {
         loadQuestion();
         displayScore();
+        loadAdvert();
     }
 
     private class NextQuestionLoader implements Runnable {
@@ -186,6 +194,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
             loadQuestion();
             displayScore();
+            loadAdvert();
         }
     }
 }
