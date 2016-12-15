@@ -15,6 +15,7 @@ public class Question {
     private List<String> possibleAnswers;
     private int points;
     private int level;
+    private int time;
 
     /**
      * This value is not stored in the database, it is only used when the application runs to track
@@ -27,13 +28,14 @@ public class Question {
     }
 
     public Question(String question, String hint, String correctAnswer, int points, int level,
-                    List<String> possibleAnswers) {
+                    List<String> possibleAnswers, int time) {
         this.question = question;
         this.hint = hint;
         this.answer = correctAnswer;
         this.possibleAnswers = possibleAnswers;
         this.points = points;
         this.level = level;
+        this.time = time;
     }
 
 
@@ -118,5 +120,13 @@ public class Question {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 }

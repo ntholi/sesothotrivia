@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
@@ -58,6 +59,20 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         Typeface font_stan = Typeface.createFromAsset(getAssets(), "fonts/STAN0755.TTF");
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setTypeface(font_stan);
+
+        int time = question.getTime();
+        if (time > 0) {
+            new CountDownTimer(time * 100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+                @Override
+                public void onFinish() {
+
+                }
+
+            }.start();
+        }
     }
 
     @Override
@@ -117,24 +132,18 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             questionStatus.requestFocus();
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
-//            if(game.nextLevel()){
             Handler delayHandler = new Handler();
             delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
-//            }
-//            else{
-//                Snackbar.make(view.getRootView(), game.getMessage(),
-//                        Snackbar.LENGTH_LONG).show();
-//            }
         } else {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
             mp.start();
+            Button button = (Button) view;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                Button button = (Button) view;
                 button.setBackground(ContextCompat.getDrawable(this, R.drawable.button_wrong_answer));
                 button.setTextColor(ContextCompat.getColor(this, R.color.white));
             }
             else {
-                Toast.makeText(this, getString(R.string.wrong_answer_warning), Toast.LENGTH_SHORT).show();
+                button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_wrong_answer));
             }
         }
     }
@@ -218,7 +227,6 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             }catch (IndexOutOfBoundsException ex){
                 Snackbar.make(view.getRootView(), "No more questions, "+ex.getMessage(),
                         Snackbar.LENGTH_LONG).show();
-
             }
             displayScore();
             loadAdvert();
