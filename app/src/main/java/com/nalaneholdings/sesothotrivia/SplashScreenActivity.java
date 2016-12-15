@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity implements PlayerFac
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null){
                         //Enable Offline Capabilities
-                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+//                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                         AdvertFactory.initialize();
                         PlayerFactory.initialize(instance);
                     }
