@@ -1,17 +1,24 @@
 package com.nalaneholdings.sesothotrivia;
 
+import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -164,6 +171,16 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         TextView scoreView = (TextView) findViewById(R.id.score);
         String score = String.format("%04d", game.getGameStatus().getPoints());
         scoreView.setText(score);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.level);
+        layout.removeAllViews();
+        for (int i = 0; i < game.getLevel(); i++){
+            ImageView image = new ImageView(this);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(40, ViewGroup.LayoutParams.WRAP_CONTENT);
+            image.setLayoutParams(params);
+            image.setImageResource(R.drawable.thebe_br);
+            layout.addView(image);
+        }
     }
 
     private void loadAdvert(){

@@ -63,7 +63,9 @@ public class GamePlayer extends Progress {
         });
     }
 
-
+    public int getLevel() {
+        return gameStatus.getLevel();
+    }
 
 
     /**
