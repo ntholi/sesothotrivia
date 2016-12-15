@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Question {
 
+    public static final String NAME = "questions";
     //	private String id;
     private String question;
     private String hint;

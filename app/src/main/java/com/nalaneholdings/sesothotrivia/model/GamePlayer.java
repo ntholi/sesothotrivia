@@ -39,7 +39,7 @@ public class GamePlayer extends Progress {
         }
         showProgressDialog();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("questions").addChildEventListener(new ChildEventListener() {
+        mDatabase.child(Question.NAME).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Question question = dataSnapshot.getValue(Question.class);
