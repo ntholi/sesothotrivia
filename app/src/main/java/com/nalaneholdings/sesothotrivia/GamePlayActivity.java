@@ -117,14 +117,14 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             questionStatus.requestFocus();
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
-            if(game.nextLevel()){
+//            if(game.nextLevel()){
                 Handler delayHandler = new Handler();
                 delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
-            }
-            else{
-                Snackbar.make(view.getRootView(), game.getMessage(),
-                        Snackbar.LENGTH_LONG).show();
-            }
+//            }
+//            else{
+//                Snackbar.make(view.getRootView(), game.getMessage(),
+//                        Snackbar.LENGTH_LONG).show();
+//            }
         } else {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
             mp.start();

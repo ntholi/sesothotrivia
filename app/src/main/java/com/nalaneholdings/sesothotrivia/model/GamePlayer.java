@@ -15,6 +15,7 @@ import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This class governs the rules of playing a gameStatus
@@ -24,16 +25,18 @@ public class GamePlayer extends Progress {
 
     private static final String TAG = "GamePlayer";
     private GameStatus gameStatus;
-    private List<Question> questions;
+    private List<List<Question>> questions;
     private String message;
-    private int attempts;
     private QuestionLoadable questionLoader;
 
 
     public GamePlayer(Context context){
         super(context);
         gameStatus = PlayerFactory.getPlayer().getGameStatus();
-        questions = new ArrayList<>();
+        questions = new ArrayList<>();{
+            //add the first element, which will not contain any value
+            questions.add(new ArrayList<Question>());
+        }
         if(context instanceof QuestionLoadable){
             questionLoader = (QuestionLoadable) context;
         }
@@ -42,11 +45,9 @@ public class GamePlayer extends Progress {
         mDatabase.child(Question.NAME).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Question question = dataSnapshot.getValue(Question.class);
-                questions.add(question);
-                Log.d(TAG, "Adding question, "+ question.getQuestion());
+                addQuestion(dataSnapshot);
 
-                if(questions != null && questions.size() > gameStatus.getLevel()){
+                if(questions != null && questions.size() > (gameStatus.getLevel() + 1)){
                     hideProgressDialog();
                     if(questionLoader != null)
                         questionLoader.onQuestionLoaded();
@@ -63,6 +64,21 @@ public class GamePlayer extends Progress {
         });
     }
 
+    /**
+     * Add questions to the question list, and make sure to add only questions that have not been answered yet
+     * @param data DataSnapshot
+     */
+    private void addQuestion(DataSnapshot data) {
+        Question question = data.getValue(Question.class);
+        if (!gameStatus.getAnsweredQuestions().contains(data.getKey())) {
+            question.setId(data.getKey());
+            if(questions.size() <= question.getLevel()){
+                questions.add(new ArrayList<Question>());
+            }
+            questions.get(question.getLevel()).add(question);
+        }
+    }
+
     public int getLevel() {
         return gameStatus.getLevel();
     }
@@ -72,7 +88,7 @@ public class GamePlayer extends Progress {
      * a class that implements this interface will only access only when they are fully downloaded
      * from the fire base
      */
-    public interface QuestionLoadable {
+    public interface QuestionLoadable { // TODO: 2016/12/15 Rename this to QuestionDownloadable
         public void onQuestionLoaded();
     }
 
@@ -82,9 +98,24 @@ public class GamePlayer extends Progress {
         return message;
     }
 
+    /**
+     * Return a random question within questions within the player's game status level
+     * And increase level if all questions within level are answered
+     * @return Question
+     */
     public Question getQuestion(){
-        System.out.println("xxx question at level: "+ gameStatus.getLevel());
-        return questions.get(gameStatus.getLevel());
+        if(gameStatus.getAnsweredQuestions().size() >= questions.get(getLevel()).size()){
+            gameStatus.increaseLevel();
+        }
+        List<Question> levelQs = questions.get(getLevel());
+
+        Question question;
+        do {
+            int random = new Random().nextInt(levelQs.size());
+            question = levelQs.get(random);
+        }while (gameStatus.getAnsweredQuestions().contains(question.getId()));
+
+        return question;
     }
 
     public void increasePoints() {
@@ -93,20 +124,18 @@ public class GamePlayer extends Progress {
         gameStatus.setPoints(points);
     }
 
-    public boolean nextLevel(){
-        int level = gameStatus.getLevel();
-        gameStatus.setLevel(++level);
-        return true;
-    }
+//    public void nextLevel(){
+//        int level = gameStatus.getLevel();
+//        gameStatus.setLevel(++level);
+//    }
 
     public boolean isAnswerCorrect(Question question, String answer) {
         boolean correct = false;
         if(question.isAnswerCorrect(answer)){
             increasePoints();
+            gameStatus.addAnsweredQuestion(question.getId());
             correct = true;
         }
-//        else decreasePoints();
-
         return correct;
     }
 

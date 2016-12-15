@@ -8,13 +8,19 @@ import java.util.List;
 public class Question {
 
     public static final String NAME = "questions";
-    //	private String id;
+
     private String question;
     private String hint;
     private String answer;
     private List<String> possibleAnswers;
     private int points;
     private int level;
+
+    /**
+     * This value is not stored in the database, it is only used when the application runs to track
+     * each question as needed by the GamePlayer class
+     */
+    private String id;
 
     public Question(){
         // Default constructor required for calls to DataSnapshot.getValue(Player.class)
@@ -104,5 +110,13 @@ public class Question {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

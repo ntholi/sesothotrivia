@@ -36,7 +36,9 @@ public class PlayerFactory {
                     player = userFromFirebase(firebaseUser);
                 }
                 if(player.getGameStatus() == null){
-                    player.setGameStatus(new GameStatus());
+                    GameStatus status = new GameStatus();
+                    status.setLevel(1);
+                    player.setGameStatus(status);
                 }
                 playerLoader.onPlayerLoaded();
             }
