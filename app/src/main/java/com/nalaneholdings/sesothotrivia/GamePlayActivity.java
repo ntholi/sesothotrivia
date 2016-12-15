@@ -60,19 +60,6 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setTypeface(font_stan);
 
-//        int time = question.getTime();
-//        if (time > 0) {
-//            new CountDownTimer(time * 100, 1000) {
-//                @Override
-//                public void onTick(long millisUntilFinished) {
-//                }
-//                @Override
-//                public void onFinish() {
-//
-//                }
-//
-//            }.start();
-//        }
     }
 
     @Override
@@ -91,7 +78,6 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     }
 
     public void loadQuestion() {
-        question = game.getQuestion();
         Typeface font_school = Typeface.createFromAsset(getAssets(), "fonts/Schoolbell.ttf");
         TextView questionView = (TextView) findViewById(R.id.question_view);
         questionView.setTypeface(font_school);
@@ -133,7 +119,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             questionStatus.requestFocus();
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
-            delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
+            delayHandler.postDelayed(new NextQuestionLoader(), 2000);
         } else {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
             mp.start();
@@ -145,7 +131,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             else {
                 button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_wrong_answer));
             }
-            delayHandler.postDelayed(new NextQuestionLoader(view), 1000);
+            delayHandler.postDelayed(new NextQuestionLoader(), 1000);
         }
     }
 
@@ -202,18 +188,28 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
     @Override
     public void onQuestionLoaded() {
+        question = game.getQuestion();
+        int time = question.getTime();
+        if (time > 0) {
+            new CountDownTimer(time * 100, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+                @Override
+                public void onFinish() {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
+                    mp.start();
+                    Handler delayHandler = new Handler();
+                    delayHandler.postDelayed(new NextQuestionLoader(), 1000);
+                }
+            }.start();
+        }
         loadQuestion();
         displayScore();
         loadAdvert();
     }
 
     private class NextQuestionLoader implements Runnable {
-        private View view;
-
-        NextQuestionLoader(View view) {
-            this.view = view;
-        }
-
         @Override
         public void run() {
             TextView questionView = (TextView) findViewById(R.id.question_view);
@@ -226,8 +222,8 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             try{
                 loadQuestion();
             }catch (IndexOutOfBoundsException ex){
-                Snackbar.make(view.getRootView(), "No more questions, "+ex.getMessage(),
-                        Snackbar.LENGTH_LONG).show();
+                Toast.makeText(GamePlayActivity.this, "No more questions, "+ex.getMessage(),
+                        Toast.LENGTH_LONG).show();
             }
             displayScore();
             loadAdvert();
