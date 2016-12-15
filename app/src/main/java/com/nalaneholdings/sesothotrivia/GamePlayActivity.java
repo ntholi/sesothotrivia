@@ -118,8 +118,8 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
 //            if(game.nextLevel()){
-                Handler delayHandler = new Handler();
-                delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
+            Handler delayHandler = new Handler();
+            delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
 //            }
 //            else{
 //                Snackbar.make(view.getRootView(), game.getMessage(),
@@ -216,8 +216,9 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             try{
                 loadQuestion();
             }catch (IndexOutOfBoundsException ex){
-                Toast.makeText(GamePlayActivity.this, "No more questions, "+ex.getMessage(),
-                        Toast.LENGTH_SHORT).show();
+                Snackbar.make(view.getRootView(), "No more questions, "+ex.getMessage(),
+                        Snackbar.LENGTH_LONG).show();
+
             }
             displayScore();
             loadAdvert();
