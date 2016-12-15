@@ -213,7 +213,12 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             assert questionStatus != null;
             questionStatus.setText("");
 
-            loadQuestion();
+            try{
+                loadQuestion();
+            }catch (IndexOutOfBoundsException ex){
+                Toast.makeText(GamePlayActivity.this, "No more questions, "+ex.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
             displayScore();
             loadAdvert();
         }
