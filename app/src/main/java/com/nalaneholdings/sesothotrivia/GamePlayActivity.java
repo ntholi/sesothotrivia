@@ -27,6 +27,9 @@ import com.nalaneholdings.sesothotrivia.model.bean.Player;
 import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoadable {
 
     private GamePlayer game;
@@ -55,6 +58,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         super.onPause();
         Player player = PlayerFactory.getPlayer();
         player.applyReverseRating();
+        player.setLastPlayedAt(new Date().toString());
         database.child(Player.NAME).child(user.getUid()).setValue(player);
 
     }

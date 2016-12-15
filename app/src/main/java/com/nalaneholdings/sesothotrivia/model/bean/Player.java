@@ -12,13 +12,15 @@ public class Player {
     private String displayName;
     private String photoURL;
     private GameStatus gameStatus;
+    private String lastPlayedAt;
     private int reverseRating;
 
-    public Player(String email, String displayName, String photoURL, GameStatus gameStatus, int reverseRating) {
+    public Player(String email, String displayName, String photoURL, GameStatus gameStatus, String lastPlayedAt, int reverseRating) {
         this.email = email;
         this.displayName = displayName;
         this.photoURL = photoURL;
         this.gameStatus = gameStatus;
+        this.lastPlayedAt = lastPlayedAt;
         this.reverseRating = reverseRating;
     }
 
@@ -67,5 +69,13 @@ public class Player {
 
     public void applyReverseRating(){
         reverseRating = 0 - gameStatus.getPoints();
+    }
+
+    public String getLastPlayedAt() {
+        return lastPlayedAt;
+    }
+
+    public void setLastPlayedAt(String lastPlayedAt) {
+        this.lastPlayedAt = lastPlayedAt;
     }
 }
