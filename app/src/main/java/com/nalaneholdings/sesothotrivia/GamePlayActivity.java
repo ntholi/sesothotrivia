@@ -60,19 +60,19 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setTypeface(font_stan);
 
-        int time = question.getTime();
-        if (time > 0) {
-            new CountDownTimer(time * 100, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                }
-                @Override
-                public void onFinish() {
-
-                }
-
-            }.start();
-        }
+//        int time = question.getTime();
+//        if (time > 0) {
+//            new CountDownTimer(time * 100, 1000) {
+//                @Override
+//                public void onTick(long millisUntilFinished) {
+//                }
+//                @Override
+//                public void onFinish() {
+//
+//                }
+//
+//            }.start();
+//        }
     }
 
     @Override
@@ -123,6 +123,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     }
 
     public void answerSelected(View view) {
+        Handler delayHandler = new Handler();
         if (game.isAnswerCorrect(question, extractAnswer(view))) {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.correct);
             mp.start();
@@ -132,7 +133,6 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             questionStatus.requestFocus();
             questionStatus.setFocusableInTouchMode(true);
             questionStatus.setText(R.string.correct_answer_label);
-            Handler delayHandler = new Handler();
             delayHandler.postDelayed(new NextQuestionLoader(view), 2000);
         } else {
             MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
@@ -145,6 +145,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
             else {
                 button.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.button_wrong_answer));
             }
+            delayHandler.postDelayed(new NextQuestionLoader(view), 1000);
         }
     }
 
