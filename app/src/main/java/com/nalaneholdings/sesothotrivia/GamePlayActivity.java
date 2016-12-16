@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +42,10 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     private CountDownTimer timer;
     private long timePassed;
 
+    private ImageButton startTimerBtn;
+    private ImageButton pauseTimerBtn;
+    private ImageButton stopTimerBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,9 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         TextView scoreView = (TextView) findViewById(R.id.score);
         scoreView.setTypeface(font_stan);
 
+        startTimerBtn = (ImageButton) findViewById(R.id.start_button);
+        pauseTimerBtn = (ImageButton) findViewById(R.id.pause_button);
+        stopTimerBtn = (ImageButton) findViewById(R.id.stop_button);
     }
 
     @Override
@@ -75,6 +83,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
     public void loadQuestion() {
         question = game.getQuestion();
+        enableDisableTimerBtns(question);
         Typeface font_school = Typeface.createFromAsset(getAssets(), "fonts/Schoolbell.ttf");
         TextView questionView = (TextView) findViewById(R.id.question_view);
         questionView.setTypeface(font_school);
@@ -227,6 +236,19 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     public void startTimer(View view) {
         if(question.getTime() > 0){
             timer.start();
+        }
+    }
+
+    private void enableDisableTimerBtns(Question question){
+        if(question.getTime() > 0){
+            startTimerBtn.setEnabled(true);
+            pauseTimerBtn.setEnabled(true);
+            stopTimerBtn.setEnabled(true);
+        }
+        else{
+            startTimerBtn.setEnabled(false);
+            pauseTimerBtn.setEnabled(false);
+            stopTimerBtn.setEnabled(false);
         }
     }
 
