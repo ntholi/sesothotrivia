@@ -1,18 +1,13 @@
 package com.nalaneholdings.sesothotrivia;
 
-import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,13 +25,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.nalaneholdings.sesothotrivia.model.AdvertFactory;
 import com.nalaneholdings.sesothotrivia.model.GamePlayer;
 import com.nalaneholdings.sesothotrivia.model.bean.Advert;
-import com.nalaneholdings.sesothotrivia.model.bean.GameStatus;
 import com.nalaneholdings.sesothotrivia.model.bean.Player;
 import com.nalaneholdings.sesothotrivia.model.bean.PlayerFactory;
 import com.nalaneholdings.sesothotrivia.model.bean.Question;
 
-import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoadable {
 
@@ -44,6 +38,8 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     private Question question;
     private FirebaseUser user;
     private DatabaseReference database;
+    private CountDownTimer timer;
+    private long timePassed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +74,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     }
 
     public void loadQuestion() {
+        question = game.getQuestion();
         Typeface font_school = Typeface.createFromAsset(getAssets(), "fonts/Schoolbell.ttf");
         TextView questionView = (TextView) findViewById(R.id.question_view);
         questionView.setTypeface(font_school);
@@ -98,6 +95,26 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
         TextView hint = (TextView) findViewById(R.id.hint);
         hint.setTypeface(font_courbd);
         hint.setText(question.getHint());
+
+        final long time = (question.getTime() * 1000) - question.getTimePassed();
+        System.out.println("Time "+ time);
+        if (time > 0) {
+            timer = new CountDownTimer(time, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    timePassed = millisUntilFinished;
+                    long x = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
+                    System.out.print("Time tick ("+x+"/"+time+")");
+                }
+                @Override
+                public void onFinish() {
+                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
+                    mp.start();
+                    Handler delayHandler = new Handler();
+                    delayHandler.postDelayed(new NextQuestionLoader(), 1000);
+                }
+            }.start();
+        }
     }
 
     private void loadQuestionFragmentByType(AnswerFragment fragment) {
@@ -188,25 +205,29 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
 
     @Override
     public void onQuestionLoaded() {
-        question = game.getQuestion();
-        int time = question.getTime();
-        if (time > 0) {
-            new CountDownTimer(time * 100, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                }
-                @Override
-                public void onFinish() {
-                    MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.incorrect);
-                    mp.start();
-                    Handler delayHandler = new Handler();
-                    delayHandler.postDelayed(new NextQuestionLoader(), 1000);
-                }
-            }.start();
-        }
         loadQuestion();
         displayScore();
         loadAdvert();
+    }
+
+    public void stopTimer(View view) {
+        if(question.getTime() > 0){
+            question.setTimePassed(0);
+            loadQuestion();
+        }
+    }
+
+    public void pauseTimer(View view) {
+        if(timer != null){
+            question.setTimePassed(timePassed);
+            timer.cancel();
+        }
+    }
+
+    public void startTimer(View view) {
+        if(question.getTime() > 0){
+            timer.start();
+        }
     }
 
     private class NextQuestionLoader implements Runnable {

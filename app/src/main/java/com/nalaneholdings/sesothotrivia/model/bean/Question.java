@@ -18,10 +18,11 @@ public class Question {
     private int time;
 
     /**
-     * This value is not stored in the database, it is only used when the application runs to track
+     * id and timePassed values are not stored in the database, they are only used when the application runs to track
      * each question as needed by the GamePlayer class
      */
     private String id;
+    private long timePassed;
 
     public Question(){
         // Default constructor required for calls to DataSnapshot.getValue(Player.class)
@@ -128,5 +129,13 @@ public class Question {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public void setTimePassed(long timePassed) {
+        this.timePassed = timePassed;
+    }
+
+    public long getTimePassed() {
+        return timePassed;
     }
 }

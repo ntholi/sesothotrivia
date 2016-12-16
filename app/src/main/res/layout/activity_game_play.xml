@@ -52,6 +52,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/stop"
+                        android:onClick="stopTimer"
                         android:background="?android:attr/selectableItemBackground"/>
 
                     <ImageButton
@@ -60,6 +61,7 @@
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@id/stop_button"
                         android:src="@drawable/pause"
+                        android:onClick="pauseTimer"
                         android:background="?android:attr/selectableItemBackground"/>
 
                     <ImageButton
@@ -68,6 +70,7 @@
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@id/pause_button"
                         android:src="@drawable/play"
+                        android:onClick="startTimer"
                         android:background="?android:attr/selectableItemBackground"/>
 
                     <TextView
