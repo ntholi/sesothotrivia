@@ -1,7 +1,6 @@
 package com.nalaneholdings.sesothotrivia.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +26,7 @@ public class GamePlayer extends Progress {
     private GameStatus gameStatus;
     private List<List<Question>> questions;
     private String message;
-    private QuestionLoadable questionLoader;
+    private QuestionDownloadable questionLoader;
 
 
     public GamePlayer(Context context){
@@ -37,8 +36,8 @@ public class GamePlayer extends Progress {
             //add the first element, which will not contain any value
             questions.add(new ArrayList<Question>());
         }
-        if(context instanceof QuestionLoadable){
-            questionLoader = (QuestionLoadable) context;
+        if(context instanceof QuestionDownloadable){
+            questionLoader = (QuestionDownloadable) context;
         }
         showProgressDialog();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -50,7 +49,7 @@ public class GamePlayer extends Progress {
                 if(questions != null && questions.size() > (gameStatus.getLevel() + 1)){
                     hideProgressDialog();
                     if(questionLoader != null)
-                        questionLoader.onQuestionLoaded();
+                        questionLoader.onQuestionDownloaded();
                 }
             }
             @Override
@@ -88,8 +87,8 @@ public class GamePlayer extends Progress {
      * a class that implements this interface will only access only when they are fully downloaded
      * from the fire base
      */
-    public interface QuestionLoadable { // TODO: 2016/12/15 Rename this to QuestionDownloadable
-        public void onQuestionLoaded();
+    public interface QuestionDownloadable { // TODO: 2016/12/15 Rename this to QuestionDownloadable
+        public void onQuestionDownloaded();
     }
 
     public GameStatus getGameStatus(){return gameStatus;}

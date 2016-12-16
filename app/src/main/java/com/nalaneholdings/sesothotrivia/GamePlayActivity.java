@@ -32,7 +32,7 @@ import com.nalaneholdings.sesothotrivia.model.bean.Question;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionLoadable {
+public class GamePlayActivity extends AppCompatActivity implements GamePlayer.QuestionDownloadable {
 
     private GamePlayer game;
     private Question question;
@@ -204,7 +204,7 @@ public class GamePlayActivity extends AppCompatActivity implements GamePlayer.Qu
     }
 
     @Override
-    public void onQuestionLoaded() {
+    public void onQuestionDownloaded() {
         loadQuestion();
         displayScore();
         loadAdvert();
